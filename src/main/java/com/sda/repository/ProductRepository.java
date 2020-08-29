@@ -19,4 +19,5 @@ public interface ProductRepository {
 
     Optional<Product> findProductById (Integer id);
 
+    List<Product> filterProductByPrice(Integer priceLower, Integer priceHigher);
 }

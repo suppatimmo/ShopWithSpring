@@ -37,11 +37,12 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<Product> update(@PathVariable Integer productId,
+    public ResponseEntity<Product> edit(@PathVariable Integer productId,
                                         @RequestBody EditProductDto editProductDto) {
         productRepository.editProductById(productId, editProductDto);
         System.out.println(productId);
         return ResponseEntity.ok(productRepository.findProductById(productId).get());
+//        return ResponseEntity.ok(productRepository.editProductById(productId, editProductDto).orElse(null));
     }
     @GetMapping(value = "/all")
     public ResponseEntity<List<Product>> findAll() {
@@ -52,6 +53,12 @@ public class ProductController {
     public ResponseEntity<Product> findById(@RequestParam Integer id) {
         return ResponseEntity.ok(productRepository.findProductById(id)
                 .orElse(null));
+    }
+
+    @GetMapping(value = "/price")
+    public ResponseEntity<List<Product>> filterByPrice(@RequestParam Integer priceLower,
+                                                       @RequestParam Integer priceHigher) {
+        return ResponseEntity.ok(productRepository.filterProductByPrice(priceLower, priceHigher));
     }
 
 }

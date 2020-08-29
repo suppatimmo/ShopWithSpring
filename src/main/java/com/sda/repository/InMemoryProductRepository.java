@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class InMemoryProductRepository implements ProductRepository {
@@ -78,5 +79,12 @@ public class InMemoryProductRepository implements ProductRepository {
         return products.stream()
                 .filter(product -> product.getId().equals(id))
                 .findFirst();
+    }
+
+    @Override
+    public List<Product> filterProductByPrice(Integer priceLower, Integer priceHigher) {
+        return products.stream()
+                .filter(product -> product.getPrice() >= priceLower && product.getPrice() <= priceHigher)
+                .collect(Collectors.toList());
     }
 }
