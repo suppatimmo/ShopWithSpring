@@ -5,6 +5,7 @@ import com.sda.dto.EditProductDto;
 import com.sda.model.Product;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,10 +43,30 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public void editProductById(EditProductDto editProductDto) {
+    public void editProductById(Integer id, EditProductDto editProductDto) {
+        Optional<Product> product = products.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst();
+        if(product.isEmpty())
+            return;
+     //       return Optional.empty();
 
+        //get zwraca obiekt z wrappera
+        Product p = product.get();
+        if (editProductDto.getDescription() != null  && !editProductDto.getDescription().isEmpty())
+            p.setDescription(editProductDto.getDescription());
+
+        if (editProductDto.getImageUrl() != null  && !editProductDto.getImageUrl().isEmpty())
+            p.setImageUrl(editProductDto.getImageUrl());
+
+        if (editProductDto.getPrice() != null)
+            p.setPrice(editProductDto.getPrice());
+
+        if (editProductDto.getQuantity() != null)
+            p.setQuantity(editProductDto.getQuantity());
 
     }
+
 
     @Override
     public List<Product> findAll() {

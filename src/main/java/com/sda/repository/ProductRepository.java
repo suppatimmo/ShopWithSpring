@@ -13,7 +13,7 @@ public interface ProductRepository {
 
     void deleteProductById (Integer id);
 
-    void editProductById (EditProductDto editProductDto);
+    void editProductById (Integer id, EditProductDto editProductDto);
 
     List<Product> findAll();
 

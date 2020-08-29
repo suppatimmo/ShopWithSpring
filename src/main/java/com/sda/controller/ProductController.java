@@ -36,11 +36,12 @@ public class ProductController {
 
     }
 
-    @PutMapping("/{personId}")
-    public ResponseEntity<Product> update(@PathVariable Integer personId,
+    @PutMapping("/{productId}")
+    public ResponseEntity<Product> update(@PathVariable Integer productId,
                                         @RequestBody EditProductDto editProductDto) {
-        productRepository.editProductById(editProductDto);
-        return new ResponseEntity<>(HttpStatus.FOUND);
+        productRepository.editProductById(productId, editProductDto);
+        System.out.println(productId);
+        return ResponseEntity.ok(productRepository.findProductById(productId).get());
     }
     @GetMapping(value = "/all")
     public ResponseEntity<List<Product>> findAll() {
