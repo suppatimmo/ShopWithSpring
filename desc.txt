@@ -1,0 +1,14 @@
+Funkcjonalności:
+- dodawanie produktów
+- usuwanie produktów
+- edycja produktu
+- wyszukiwanie produktów
+- wyszukiwanie z filtrem produktów (cena od-do)
+
+Model:
+- PRODUCT	/ID
+		PRICE INT
+		QUANTITY INT
+		NAME STRING
+		DESCRIPTION STRING
+		IMAGE.URL STRING
