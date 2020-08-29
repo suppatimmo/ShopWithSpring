@@ -15,9 +15,11 @@ public interface ProductRepository {
 
     void editProductById (Integer id, EditProductDto editProductDto);
 
-    List<Product> findAll();
+    List<Product> findAll ();
 
     Optional<Product> findProductById (Integer id);
 
-    List<Product> filterProductByPrice(Integer priceLower, Integer priceHigher);
+    List<Product> filterProductByPrice (Integer priceLower, Integer priceHigher);
+
+    List<Product> findByFilters (String name, String description);
 }

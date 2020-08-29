@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/product")
@@ -59,6 +60,13 @@ public class ProductController {
     public ResponseEntity<List<Product>> filterByPrice(@RequestParam Integer priceLower,
                                                        @RequestParam Integer priceHigher) {
         return ResponseEntity.ok(productRepository.filterProductByPrice(priceLower, priceHigher));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Product>> findProducts (@RequestParam (required = false) String name,
+                                                       @RequestParam (required = false) String description) {
+        List<Product> byFilters = productRepository.findByFilters(name, description);
+        return ResponseEntity.ok(byFilters);
     }
 
 }

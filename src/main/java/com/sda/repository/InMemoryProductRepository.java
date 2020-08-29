@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class InMemoryProductRepository implements ProductRepository {
@@ -86,5 +87,20 @@ public class InMemoryProductRepository implements ProductRepository {
         return products.stream()
                 .filter(product -> product.getPrice() >= priceLower && product.getPrice() <= priceHigher)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> findByFilters(String name, String description) {
+        Stream<Product> productStream = products.stream();
+
+        if (name != null) {
+            productStream = productStream.filter(product -> product.getName().equals(name));
+        }
+
+        if (description != null) {
+            productStream = productStream.filter(product -> product.getDescription().equals(description));
+        }
+
+        return productStream.collect(Collectors.toList());
     }
 }
