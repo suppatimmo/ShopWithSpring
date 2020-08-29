@@ -1,9 +1,15 @@
 package com.sda.controller;
 
+import com.sda.dto.CreateProductDto;
+import com.sda.dto.EditProductDto;
+import com.sda.model.Product;
+import com.sda.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -18,4 +24,33 @@ public class ProductController {
     }
 
     @PostMapping
+    public ResponseEntity<Void> create(@RequestBody CreateProductDto productDto) {
+        productRepository.saveProduct(productDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteById(@RequestParam Integer id) {
+        productRepository.deleteProductById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @PutMapping("/{personId}")
+    public ResponseEntity<Product> update(@PathVariable Integer personId,
+                                        @RequestBody EditProductDto editProductDto) {
+        productRepository.editProductById(editProductDto);
+        return new ResponseEntity<>(HttpStatus.FOUND);
+    }
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<Product>> findAll() {
+        return ResponseEntity.ok(productRepository.findAll());
+    }
+
+    @GetMapping
+    public ResponseEntity<Product> findById(@RequestParam Integer id) {
+        return ResponseEntity.ok(productRepository.findProductById(id)
+                .orElse(null));
+    }
+
 }
