@@ -1,4 +1,6 @@
-//package com.sda.repository;
+//package com.sda.service;
+//
+//public class InMemoryProductService {
 //
 //import com.sda.dto.CreateProductDto;
 //import com.sda.dto.EditProductDto;
@@ -14,7 +16,7 @@
 //import java.util.stream.Stream;
 //
 //@Component
-//public class InMemoryProductRepository implements ProductRepository {
+//public class InMemoryProductService implements ProductRepository {
 //
 //    private static List<Product> products;
 //
